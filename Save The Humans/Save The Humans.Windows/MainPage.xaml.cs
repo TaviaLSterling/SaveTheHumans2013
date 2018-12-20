@@ -19,12 +19,16 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Save_The_Humans
 {
+
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
     public sealed partial class MainPage : Page
     {
         Random random = new Random();
+        DispatcherTimer enemyTimer = new DispatcherTimer();
+        DispatcherTimer targetTimer = new DispatcherTimer();
+        bool humanCaptured = false;
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -48,10 +52,41 @@ namespace Save_The_Humans
 
         public MainPage()
         {
+           
             this.InitializeComponent();
+
+            enemyTimer.Tick += enemyTimer_Tick;
+            enemyTimer.Interval = TimeSpan.FromSeconds(2);
+
+            targetTimer.Tick += targetTimer_Tick;
+            targetTimer.Interval = TimeSpan.FromSeconds(.1);
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
             this.navigationHelper.SaveState += navigationHelper_SaveState;
+        }
+
+        private void targetTimer_Tick(object sender, object e)
+        {
+            progressBar.Value += 1;
+            if (progressBar.Value >= progressBar.Maximum)
+                EndTheGame();
+        }
+
+        private void EndTheGame()
+        {
+           if(!playArea.Children.Contains(gameOverText))
+           {
+               enemyTimer.Stop();
+               targetTimer.Stop();
+               humanCaptured = false;
+               startButton.Visibility = Visibility.Visible;
+               playArea.Children.Add(gameOverText);
+           }
+        }
+
+        void enemyTimer_Tick(object sender, object e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
