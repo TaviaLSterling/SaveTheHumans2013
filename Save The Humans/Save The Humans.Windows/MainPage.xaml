@@ -70,6 +70,22 @@
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
+            <StackPanel x:Name="human" Orientation="Vertical">
+                <Ellipse Fill="White" Height="10" Width="10"></Ellipse>
+                <Rectangle Fill="White" Height="25" Width="10"></Rectangle>
+            </StackPanel>
+            <TextBlock x:Name="gameOverText" Canvas.Left="419" TextWrapping="Wrap" Text="Game Over" Canvas.Top="152" FontStyle="Italic" FontWeight="Bold" FontSize="100" Foreground="#FF3C3939"/>
+            <Rectangle x:Name="target" Height="50" Canvas.Left="940" Canvas.Top="89" Width="50" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform Rotation="45"/>
+                </Rectangle.RenderTransform>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFEFF4F6" Offset="0"/>
+                        <GradientStop Color="#FF53C1EA" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
         </Canvas>
     </Grid>
 </Page>
