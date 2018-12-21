@@ -165,6 +165,13 @@ namespace Save_The_Humans
             AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 100),
                 random.Next((int)playArea.ActualHeight - 100), "(Canvas.Top)");
             playArea.Children.Add(enemy);
+            enemy.PointerEntered += enemy_PointerEntered;
+        }
+
+        void enemy_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (humanCaptured)
+                EndTheGame();
         }
 
         private void AnimateEnemy(ContentControl enemy, double from, double to, string propertyToAnimate)
@@ -223,6 +230,12 @@ namespace Save_The_Humans
                     Canvas.SetTop(human, relativePosition.Y - human.ActualHeight / 2);
                 }
             }
+        }
+
+        private void playArea_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (humanCaptured)
+                EndTheGame();
         }
     }
 }

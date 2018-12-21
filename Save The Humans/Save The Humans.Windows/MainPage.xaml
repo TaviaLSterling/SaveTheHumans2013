@@ -63,7 +63,7 @@
             <ContentControl x:Name="enemy" Content="ContentControl" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource EnemyTemplate}"/>
         </StackPanel>
         <ProgressBar x:Name="progressBar" Grid.Column="1" Grid.Row="2" Height="20" IsEnabled="False"/>
-        <Canvas x:Name="playArea" Grid.Row="1" Grid.ColumnSpan="3" PointerMoved="playArea_PointerMoved">
+        <Canvas x:Name="playArea" Grid.Row="1" Grid.ColumnSpan="3" PointerMoved="playArea_PointerMoved" PointerExited="playArea_PointerExited">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFCCF42C" Offset="0"/>
@@ -71,8 +71,8 @@
                 </LinearGradientBrush>
             </Canvas.Background>
             <StackPanel x:Name="human" Orientation="Vertical" PointerPressed="human_PointerPressed">
-                <Ellipse Fill="White" Height="10" Width="10"></Ellipse>
-                <Rectangle Fill="White" Height="25" Width="10"></Rectangle>
+                <Ellipse Fill="Black" Height="10" Width="10"></Ellipse>
+                <Rectangle Fill="Black" Height="25" Width="10"></Rectangle>
             </StackPanel>
             <TextBlock x:Name="gameOverText" Canvas.Left="419" TextWrapping="Wrap" Text="Game Over" Canvas.Top="152" FontStyle="Italic" FontWeight="Bold" FontSize="100" Foreground="#FF3C3939"/>
             <Rectangle x:Name="target" Height="50" Canvas.Left="940" Canvas.Top="89" Width="50" RenderTransformOrigin="0.5,0.5" PointerEntered="target_PointerEntered">
