@@ -55,14 +55,14 @@ namespace Save_The_Humans
            
             this.InitializeComponent();
 
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += navigationHelper_LoadState;
+            this.navigationHelper.SaveState += navigationHelper_SaveState;
             enemyTimer.Tick += enemyTimer_Tick;
             enemyTimer.Interval = TimeSpan.FromSeconds(2);
 
             targetTimer.Tick += targetTimer_Tick;
             targetTimer.Interval = TimeSpan.FromSeconds(.1);
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += navigationHelper_LoadState;
-            this.navigationHelper.SaveState += navigationHelper_SaveState;
         }
 
         private void targetTimer_Tick(object sender, object e)
@@ -86,7 +86,7 @@ namespace Save_The_Humans
 
         void enemyTimer_Tick(object sender, object e)
         {
-            throw new NotImplementedException();
+            AddEnemy();
         }
 
         /// <summary>
@@ -141,12 +141,26 @@ namespace Save_The_Humans
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
-            AddEnemy();
+            StartGame();
+        }
+
+        private void StartGame()
+        {
+            human.IsHitTestVisible = true;
+            humanCaptured = false;
+            progressBar.Value = 0;
+            startButton.Visibility = Visibility.Collapsed;
+            playArea.Children.Clear();
+            playArea.Children.Add(target);
+            playArea.Children.Add(human);
+            enemyTimer.Start();
+            targetTimer.Start();
         }
 
         private void AddEnemy()
         {
             ContentControl enemy = new ContentControl();
+            enemy.Template = Resources["EnemyTemplate"] as ControlTemplate;
             AnimateEnemy(enemy, 0, playArea.ActualWidth - 100, "(Canvas.Left)");
             AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 100),
                 random.Next((int)playArea.ActualHeight - 100), "(Canvas.Top)");
